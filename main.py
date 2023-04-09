@@ -1,3 +1,4 @@
+from time import *
 '''from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -103,24 +104,37 @@ profile_btn.click()
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+def _options():
+    options = Options()
+    options.add_argument('--ignore-certificate-errors')
+    #options.add_argument("--test-type")
+    options.add_argument("--headless")
+    options.add_argument("--incognito")
+    options.add_argument('--disable-gpu') if os.name == 'nt' else None # Windows workaround
+    options.add_argument("--verbose")
+    return options
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import maskpass
 user = str(input("Username : "))
-passw= str(input("Password : "))
+#passw= str(input("Password : "))
+passw=maskpass.askpass(prompt="Password : ",mask="*")
 
+#htmlelement= browser.find_element_by_tag_name('html')
+ChoiceESC = input("Choose your course for ESC-1 :\n1. Introduction to Civil Engg\n2. Introduction to Electrical Engg\n3. Introdution to Electronics Engg\n4. Introduction to Mechanical Engg\nYour Choice : ")
+ChoiceETC = input("Choose your course for ETC :  \n1. Green Buildings\n2. Introductio to Sustainable Engineering\n3. Renewable Energy Sources\n4.Waste Management\nYour Choice : ")
 options = Options()
 options.add_argument("start-maximized")
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-
+htmlelement = browser.find_element(By.TAG_NAME, 'html')
 browser.get('https://firstyear.bmsce.ttcindia.co')
 
-wait = WebDriverWait(browser, 10)
 
+wait = WebDriverWait(browser, 10)
 
 email_elem = wait.until(EC.visibility_of_element_located((By.ID, "email")))
 email_elem.send_keys(user)
@@ -136,32 +150,53 @@ reg_elem.click()
 
 ASC1 = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[1]/td[5]/button")))
 ASC1.click()
-
+sleep(1)
 ASC2 = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[2]/td[5]/button")))
-ASC.click()
-
+ASC2.click()
+sleep(1)
 ESC = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[3]/td[5]/button")))
 ESC.click()
+sleep(1)
+#ESC1choice = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[2]/td[5]/button")))
+#ESC1choice.click()
+#ESC1conf = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[4]/button")))
+#ESC1conf.click()
+#ESC1 = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[4]/td[5]/button")))
+#ESC1.click
 
-ESC1choice = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[2]/td[5]/button")))
+sleep(1)
+ESC1select = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[4]/td[4]/div/button")))
+ESC1select.click()
+ESC1choice = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[{}]/td[5]/button".format(ChoiceESC))))
 ESC1choice.click()
-ESC1conf = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[4]/button")))
-ESC1conf.click()
-ESC1 = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[4]/td[5]/button")))
-ESC1.click
+ESCconf = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[4]/button")))
+ESCconf.click()
+ESCreg = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[4]/td[5]/button")))
+ESCreg.click()
+sleep(1)
+#ETCchoice = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[2]/td[5]/button")))
+#ETCchoice.click()
+#ETCconf = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[5]/button")))
+#ETCconf.click()
 
-ETCchoice = wait.until(EC.element_to_be_clickable((XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[2]/td[5]/button")))
+sleep(1)
+ETCselect = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[5]/td[4]/div/button")))
+ETCselect.click()
+ETCchoice = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[3]/table/tbody/tr[{}]/td[5]/button".format(ChoiceETC))))
 ETCchoice.click()
 ETCconf = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/div/div/div[5]/button")))
 ETCconf.click()
-ETC = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[5]/td[5]/button")))
-
+ETCreg = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[5]/td[5]/button")))
+ETCreg.click()
+htmlelement = browser.find_element(By.TAG_NAME, 'html')
+htmlelement.send_keys(Keys.END)
+sleep(1)
 AEC1 = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[6]/td[5]/button")))
 AEC1.click()
-
+sleep(1)
 HSMC = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[7]/td[5]/button")))
 HSMC.click()
-
+sleep(1)
 SDC = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div[2]/table/tbody/tr[8]/td[5]/button")))
 SDC.click()
 
