@@ -9,7 +9,7 @@ options = Options()
 options.add_argument("start-maximized")
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-browser.get('https://firstyear.bmsce.ttcindia.co')
+browser.get('Website URL Goes Here')
 wait = WebDriverWait(browser,10)
 user=""
 passw=""
@@ -43,7 +43,7 @@ options = Options()
 options.add_argument("start-maximized")
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-browser.get('https://firstyear.bmsce.ttcindia.co')
+browser.get('Website URL Goes here')
 wait = WebDriverWait(browser, 10)
 user = ""
 passw = ""
@@ -78,7 +78,7 @@ options = Options()
 options.add_argument("start-maximized")
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-browser.get('https://firstyear.bmsce.ttcindia.co')
+browser.get('WEB SITE LINK')
 wait = WebDriverWait(browser,10)
 
 user=str(input("Your_Email_Here"))
@@ -128,11 +128,12 @@ passw=maskpass.askpass(prompt="Password : ",mask="*")
 #htmlelement= browser.find_element_by_tag_name('html')
 ChoiceESC = input("Choose your course for ESC-1 :\n1. Introduction to Civil Engg\n2. Introduction to Electrical Engg\n3. Introdution to Electronics Engg\n4. Introduction to Mechanical Engg\nYour Choice : ")
 ChoiceETC = input("Choose your course for ETC :  \n1. Green Buildings\n2. Introductio to Sustainable Engineering\n3. Renewable Energy Sources\n4.Waste Management\nYour Choice : ")
+PORTAL = input("Enter The Website URL")
 options = Options()
 options.add_argument("start-maximized")
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 htmlelement = browser.find_element(By.TAG_NAME, 'html')
-browser.get('https://firstyear.bmsce.ttcindia.co')
+browser.get(PORTAL)
 
 
 wait = WebDriverWait(browser, 10)
